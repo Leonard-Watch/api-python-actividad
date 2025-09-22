@@ -22,7 +22,7 @@ Esta es la plantilla base para la actividad de la clase. Tu objetivo es completa
 
 3.  **Ejecutar la API:**
     ```bash
-    uvicorn main:app --reload
+   clea
     ```
     La API se ejecutará en http://127.0.0.1:8000. Puedes ver la documentación interactiva en http://127.0.0.1:8000/docs.
 

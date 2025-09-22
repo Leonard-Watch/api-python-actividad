@@ -43,13 +43,23 @@ def create_producto(producto: dict):
 # Deberá recibir el ID del producto y los nuevos datos.
 @app.put("/productos/{id}")
 def update_producto(id: int, producto_actualizado: dict):
-    # Lógica para encontrar y actualizar el producto
-    raise HTTPException(status_code=404, detail="Producto no encontrado")
+    idx = next((i for i, p in enumerate(productos) if p["id"] == id), None)
+    if idx is None:
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
 
+    if "nombre" in producto_actualizado:
+        productos[idx]["nombre"] = producto_actualizado["nombre"]
+    if "precio" in producto_actualizado:
+        productos[idx]["precio"] = producto_actualizado["precio"]
+
+    return {"message": "Producto actualizado", "data": productos[idx]}
 # TAREA: Agregar un endpoint DELETE para eliminar un producto.
 # Deberá recibir el ID del producto a eliminar.
 @app.delete("/productos/{id}")
 def delete_producto(id: int):
-    # Lógica para encontrar y eliminar el producto
-    raise HTTPException(status_code=404, detail="Producto no encontrado")
+    idx = next((i for i, p in enumerate(productos) if p["id"] == id), None)
+    if idx is None:
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
 
+    eliminado = productos.pop(idx)
+    return {"message": "Producto eliminado", "data": eliminado}
